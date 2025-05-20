@@ -1,10 +1,20 @@
 Antes de comenzar, asegurate de tener instalado:
 Bun
+Si no tenes el bun, usa los siguentes comandos:
+Para windos = powershell -c "irm bun.sh/install.ps1|iex"
+Para linux = curl -fsSL https://bun.sh/install | bash -s "bun-v1.2.13"
+
+luego de installar el bun, tenes que instalar el bun en la carpeta Chat_terminal
+Para ir a la carpeta Chat_termina usa el siguiente comando:
+cd Documentos/Chat_terminal/
+y dentro de la carpeta pon el comando:
+curl -fsSL https://bun.sh/install | bash
+esto para que el servidor websocket inicie correctamente
 
 Usa una terminal funcional (como Bash, Zsh, PowerShell, cmd, etc.)
 
 1. Clonar el repositorio
-git clone https://github.com/tu-usuario/chat-terminal.git
+git clone https://github.com/Adanale44/Chat_terminal.git
 cd chat-terminal
 Reemplazá tu-usuario por tu nombre de usuario de GitHub.
 
