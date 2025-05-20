@@ -43,3 +43,6 @@ Podés abrir varias terminales y ejecutar el cliente varias veces para simular d
 Problemas comunes
 Error de módulo chalk no encontrado: Ejecutá bun install para instalarlo.
 Servidor no responde: Asegurate de que el servidor esté corriendo antes de abrir clientes.
+
+Dato importante:
+Asegurate de abrir dos terminales para poder hablar
