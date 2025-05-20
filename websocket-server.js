@@ -1,36 +1,54 @@
 import { WebSocketServer } from "ws";
+import chalk from "chalk";
 
-const wss = new WebSocketServer({ port: 8080 });
-const clients = new Map();
+const PORT = 8080;
+const wss = new WebSocketServer({ port: PORT });
 
-console.log("[Servidor]: Servidor de chat iniciado en ws://localhost:8080");
+const clients = new Set();
 
-wss.on("connection", (ws) => {
-  let username = "";
+console.log(chalk.green(`[Servidor] Escuchando en ws://localhost:${PORT}`));
 
-  ws.on("message", (data) => {
-    const msg = data.toString();
-
-    if (!username) {
-      username = msg;
-      clients.set(ws, username);
-      broadcast(`[Servidor]: El usuario "${username}" se ha unido al chat.`);
-      return;
-    }
-
-    broadcast(`${username}: ${msg}`);
-  });
-
-  ws.on("close", () => {
-    clients.delete(ws);
-    broadcast(`[Servidor]: El usuario "${username}" ha salido del chat.`);
-  });
-});
-
-function broadcast(message) {
-  for (const client of wss.clients) {
-    if (client.readyState === client.OPEN) {
+function broadcast(message, sender) {
+  for (const client of clients) {
+    if (client.readyState === client.OPEN && client !== sender) {
       client.send(message);
     }
   }
 }
+
+wss.on("connection", (ws) => {
+  let username = "";
+  clients.add(ws);
+
+  console.log(chalk.yellow("[Servidor] Nueva conexión WebSocket"));
+
+  ws.on("message", (data) => {
+    const msg = data.toString();
+
+    // 🟡 Mostrar en consola lo que recibe el servidor
+    console.log(chalk.gray(`[DEBUG] ${username || "???"} dijo: ${msg}`));
+
+    if (!username) {
+      username = msg;
+      broadcast(
+        chalk.blue(`[Servidor]: El usuario "${username}" se ha unido al chat.`),
+        ws
+      );
+      return;
+    }
+
+    broadcast(`${username}: ${msg}`, ws);
+  });
+
+  ws.on("close", () => {
+    clients.delete(ws);
+
+    if (username) {
+      broadcast(
+        chalk.blue(`[Servidor]: El usuario "${username}" ha salido del chat.`),
+        ws
+      );
+      console.log(chalk.red(`[Servidor] ${username} se desconectó`));
+    }
+  });
+});
