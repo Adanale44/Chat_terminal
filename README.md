@@ -1,20 +1,16 @@
 Antes de comenzar, asegurate de tener instalado:
 Bun
-Si no tenes el bun, usa los siguentes comandos:
+Si no tenes el bun anda a la carpeta Chat_terminal.  
+Para ir a la carpeta Chat_termina usa el siguiente comando:  
+cd Documentos/Chat_terminal/
 
 Para windos = powershell -c "irm bun.sh/install.ps1|iex"
 
 Para linux = curl -fsSL https://bun.sh/install | bash -s "bun-v1.2.13"
 
-luego de installar el bun, tenes que instalar el bun en la carpeta Chat_terminal
-
-Para ir a la carpeta Chat_termina usa el siguiente comando:
-
-cd Documentos/Chat_terminal/
+luego de installar el bun, tenes que instalar algunas dependencias del bun en la carpeta Chat_terminal
 
 usa el comando: bun install
-
-para instalar el bun
 
 y dentro de la carpeta pon el comando:
 
